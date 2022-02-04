@@ -16,7 +16,7 @@
  app.use(bodyParser.json())
  
  app.get('/', (req: Request, res: Response) =>
-     res.send('Welcome!'));
+     res.send('Welcome to the TS!'));
  
  app.get('/add/:a/:b', (req: Request, res: Response) =>
      res.send(req.params.a + req.params.b));
