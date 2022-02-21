@@ -1,10 +1,15 @@
 /**
  * @file Server file
  */
+ import dotenv from "dotenv";
  import express, {Request, Response} from 'express';
  import mongoose from "mongoose";
 
- const mongoUrl = "mongodb+srv://max17:max17@cluster0.gci7e.mongodb.net/tuiter?retryWrites=true&w=majority"
+ dotenv.config();
+
+ const db_username = process.env.DB_USERNAME;
+ const db_password = process.env.DB_PASSWORD;
+ const mongoUrl = `mongodb+srv://${db_username}:${db_password}@cluster0.gci7e.mongodb.net/tuiter?retryWrites=true&w=majority`;
 
  mongoose.connect(mongoUrl);
  import bodyParser from "body-parser";
