@@ -40,7 +40,7 @@
              app.get("/api/messages/:uid", MessageController.messageController.findMessageById);
              app.post("/api/users/:uid/sends/:auid/message", MessageController.messageController.createMessageByUser);
              app.get("/api/users/:uid/message/:mid", MessageController.messageController.findMessageByMid);
-             app.get("/api/users/:uid/message/date", MessageController.messageController.findMessageByDate );
+             app.get("/api/users/:uid/message/date", MessageController.messageController.findMessageByDate);
          }
          return MessageController.messageController;
      }

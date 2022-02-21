@@ -87,5 +87,13 @@
       */
       userUnfollowsUser = (req: Request, res: Response) =>
         FollowController.followDao.userUnfollowsUser(req.params.uid, req.params.auid)
-             .then(status => res.send(status));
+            .then(status => res.send(status));
+      
+      userUnfollowAll = (req: Request, res: Response) =>
+        FollowController.followDao.userUnfollowAll(req.params.uid)
+            .then(status => res.send(status));
+
+      userRemoveAllFollowers = (req: Request, res: Response) =>
+        FollowController.followDao.userRemoveAllFollowers(req.params.uid)
+            .then(status => res.send(status));
  };
