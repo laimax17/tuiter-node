@@ -37,7 +37,7 @@
              MessageController.messageController = new MessageController();
              app.get("/api/users/:uid/messages/sent", MessageController.messageController.findAllMessagesUserSent);
              app.get("/api/users/:uid/message/received", MessageController.messageController.findAllMessagesUserReceived);
-             app.get("/api/messages/:uid", MessageController.messageController.findMessageById);
+             app.delete("/api/users/:uid/messages/delete/:mid", MessageController.messageController.deleteMessageByUser);
              app.post("/api/users/:uid/sends/:auid/message", MessageController.messageController.createMessageByUser);
              app.get("/api/users/:uid/message/:mid", MessageController.messageController.findMessageByMid);
              app.get("/api/users/:uid/message/date", MessageController.messageController.findMessageByDate);
@@ -68,15 +68,7 @@
          MessageController.messageDao.findAllMessagesUserReceived(req.params.uid)
              .then((messages: Message[]) => res.json(messages));
  
-     /**
-      * @param {Request} req Represents request from client, including path
-      * parameter tid identifying the primary key of the message to be retrieved
-      * @param {Response} res Represents response to client, including the
-      * body formatted as JSON containing the message that matches the user ID
-      */
-     findMessageById = (req: Request, res: Response) =>
-         MessageController.messageDao.findMessageByMid(req.params.uid)
-             .then((message: Message) => res.json(message));
+    
  
      /**
       * @param {Request} req Represents request from client, including body
