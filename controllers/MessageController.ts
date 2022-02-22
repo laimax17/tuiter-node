@@ -36,11 +36,11 @@
          if(MessageController.messageController === null) {
              MessageController.messageController = new MessageController();
              app.get("/api/users/:uid/messages/sent", MessageController.messageController.findAllMessagesUserSent);
-             app.get("/api/users/:uid/message/received", MessageController.messageController.findAllMessagesUserReceived);
+             app.get("/api/users/:uid/messages/received", MessageController.messageController.findAllMessagesUserReceived);
              app.delete("/api/users/:uid/messages/delete/:mid", MessageController.messageController.deleteMessageByUser);
              app.post("/api/users/:uid/sends/:auid/message", MessageController.messageController.createMessageByUser);
-             app.get("/api/users/:uid/message/:mid", MessageController.messageController.findMessageByMid);
-             app.get("/api/users/:uid/message/date", MessageController.messageController.findMessageByDate);
+             app.get("/api/users/:uid/messages/:mid", MessageController.messageController.findMessageByMid);
+             app.get("/api/users/:uid/messages/date", MessageController.messageController.findMessageByDate);
          }
          return MessageController.messageController;
      }
