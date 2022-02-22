@@ -36,5 +36,5 @@
          MessageModel.find({_id: mid});
         
      findMessageByDate = async (uid: string, date: Date): Promise<Message[]> => 
-         MessageModel.find({sentOn: Date});
+         MessageModel.find({sentOn: date});
  }
