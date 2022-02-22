@@ -89,6 +89,7 @@
      userUnbookmarksTuit = (req: Request, res: Response) =>
          BookmarkController.bookmarkDao.userUnbookmarksTuit(req.params.uid, req.params.tid)
              .then(status => res.send(status));
+             
     
      /**
       * @param {Request} req Represents request from client, including the
@@ -99,5 +100,6 @@
       */
     findSpecificTuitBookmarkedByUser = (req: Request, res: Response) =>
       BookmarkController.bookmarkDao.findSpecificTuitBookmarkedByUser(req.params.uid, req.params.tid)
-          .then(status => res.send(status));
+          //.then(status => res.send(status));
+          .then(bookmarks => res.json(bookmarks));
  };
