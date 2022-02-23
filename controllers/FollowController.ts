@@ -35,7 +35,7 @@
          if(FollowController.followController === null) {
              FollowController.followController = new FollowController();
              app.get("/api/users/:uid/follows", FollowController.followController.findAllUsersFollowing);
-             app.get("/api/tuits/:uid/follower", FollowController.followController.findAllUsersFollower);
+             app.get("/api/users/:uid/follower", FollowController.followController.findAllUsersFollower);
              app.post("/api/users/:uid/follows/:auid", FollowController.followController.userFollowsUser);
              app.delete("/api/users/:uid/unfollows/:auid", FollowController.followController.userUnfollowsUser);
              app.delete("/api/users/:uid/unfollows/all",FollowController.followController.userUnfollowAll);
