@@ -38,7 +38,7 @@
              app.get("/api/users/:uid/follower", FollowController.followController.findAllUsersFollower);
              app.post("/api/users/:uid/follows/:auid", FollowController.followController.userFollowsUser);
              app.delete("/api/users/:uid/unfollows/:auid", FollowController.followController.userUnfollowsUser);
-             app.delete("/api/users/:uid/unfollows/all",FollowController.followController.userUnfollowsAll);
+             app.delete("/api/users/:uid/unfollowsAll/",FollowController.followController.userUnfollowsAll);
              app.delete("/api/users/:uid/removefollowers/all",FollowController.followController.userRemoveAllFollowers);
          }
          return FollowController.followController;
