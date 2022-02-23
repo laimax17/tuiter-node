@@ -79,7 +79,7 @@
       * database
       */
      createMessageByUser = (req: Request, res: Response) =>
-         MessageController.messageDao.createMessageByUser(req.params.uid, req.params.auid, req.body.snetOn)
+         MessageController.messageDao.createMessageByUser(req.params.uid, req.params.auid, req.body.sentOn)
              .then((message: Message) => res.json(message));
  
 
