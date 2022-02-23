@@ -6,7 +6,7 @@
  import BookmarkControllerI from "../interfaces/BookmarkControllerI";
  
  /**
-  * @class TuitController Implements RESTful Web service API for bookmarks resource.
+  * @class BookmarkController Implements RESTful Web service API for bookmarks resource.
   * Defines the following HTTP endpoints:
   * <ul>
   *     <li>GET /api/users/:uid/bookmarks to retrieve all the tuits bookmarked by a user
@@ -16,7 +16,10 @@
   *     <li>POST /api/users/:uid/bookmarks/:tid to record that a user bookmarks a tuit
   *     </li>
   *     <li>DELETE /api/users/:uid/unbookmarks/:tid to record that a user
-  *     no longer bookmarks a tuit</li>
+  *     no longer bookmarks a tuit
+  *     </li>
+  *     <li>GET /api/users/:uid/bookmarks/:tid to get a specific tuit bookmarked by user
+  *     </li>
   * </ul>
   * @property {BookmarkDao} bookmarkDao Singleton DAO implementing bookmarks CRUD operations
   * @property {BookmarkController} BookmarkController Singleton controller implementing

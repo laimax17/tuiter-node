@@ -10,13 +10,18 @@
   * @class MessageController Implements RESTful Web service API for messages resource.
   * Defines the following HTTP endpoints:
   * <ul>
-  *     <li>POST /api/users/:uid/messages to create a new message instance for
-  *     a given user</li>
-  *     <li>GET /api/messages to retrieve all the message instances</li>
-  *     <li>GET /api/messages/:tid to retrieve a particular message instances</li>
-  *     <li>GET /api/users/:uid/messages to retrieve messages for a given user </li>
-  *     <li>PUT /api/messages/:tid to modify an individual message instance </li>
-  *     <li>DELETE /api/messages/:tid to remove a particular message instance</li>
+  *     <li>GET /api/users/:uid/messages/sent to retrieve all the messages instances sent by the user
+  *     </li>
+  *     <li>GET /api/users/:uid/messages/received to retrieve all the messages instances received by the user
+  *     </li>
+  *     <li>DELETE /api/users/:uid/messages/delete/:mid to remove a particular message instance 
+  *     </li>
+  *     <li>POST /api/users/:uid/sends/:auid/message to create a new message instance for a given user
+  *     </li>
+  *     <li>GET /api/users/:uid/messages/:mid to find a particular message sent by user
+  *     </li>
+  *     <li>DELETE /api/users/:uid/messages/delete to deletes all messages sent by user
+  *     </li>
   * </ul>
   * @property {MessageDao} messageDao Singleton DAO implementing message CRUD operations
   * @property {MessageController} messageController Singleton controller implementing
@@ -71,6 +76,7 @@
     
  
      /**
+      * Create a new message sent by user
       * @param {Request} req Represents request from client, including body
       * containing the JSON object for the new message to be inserted in the
       * database
@@ -84,6 +90,7 @@
  
 
      /**
+      * Delete a particular message sent by user
       * @param {Request} req Represents request from client, including path
       * parameter tid identifying the primary key of the message to be removed
       * @param {Response} res Represents response to client, including status
@@ -92,11 +99,25 @@
       deleteMessageByUser = (req: Request, res: Response) =>
          MessageController.messageDao.deleteMessageByUser(req.params.uid, req.params.mid)
              .then((status) => res.send(status));
-      
+    
+    /**
+      * Find a message by message ID
+      * @param {Request} req Represents request from client, including path
+      * parameter tid identifying the primary key of the message to be removed
+      * @param {Response} res Represents response to client, including status
+      * on whether deleting a user was successful or not
+      */
       findMessageByMid = (req: Request, res: Response) => 
          MessageController.messageDao.findMessageByMid(req.params.mid)
              .then((message: Message) => res.json(message));
       
+    /**
+      * Delete all messages sent by user
+      * @param {Request} req Represents request from client, including path
+      * parameter tid identifying the primary key of the message to be removed
+      * @param {Response} res Represents response to client, including status
+      * on whether deleting a user was successful or not
+      */
       deleteAllMessageByUser = (req: Request, res: Response) =>
              MessageController.messageDao.deleteAllMessageByUser(req.params.uid)
                  .then((status) => res.send(status));
