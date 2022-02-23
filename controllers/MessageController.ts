@@ -79,7 +79,7 @@
       * database
       */
      createMessageByUser = (req: Request, res: Response) =>
-         MessageController.messageDao.createMessageByUser(req.params.uid, req.params.auid, req.body.sentOn)
+         MessageController.messageDao.createMessageByUser(req.params.uid, req.params.auid, req.body)
              .then((message: Message) => res.json(message));
  
 
@@ -98,6 +98,6 @@
              .then((message: Message) => res.json(message));
       
       findMessageByDate = (req: Request, res: Response) =>
-         MessageController.messageDao.findMessageByDate(req.params.uid, req.body)
+         MessageController.messageDao.findMessageByDate(req.params.uid, req.body.sentOn)
              .then((messages: Message[]) => res.json(messages));
  };
