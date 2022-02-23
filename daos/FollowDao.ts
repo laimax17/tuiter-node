@@ -30,7 +30,7 @@ export default class FollowDao implements FollowDaoI {
                 .populate("userFollowing")
                 .exec();
     
-    userUnfollowAll = async (uid: string): Promise<any> =>
+    userUnfollowsAll = async (uid: string): Promise<any> =>
         FollowModel
                 .deleteMany({userFollowing: uid});
 

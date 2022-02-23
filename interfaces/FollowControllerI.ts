@@ -5,6 +5,6 @@ export default interface FollowControllerI {
     userUnfollowsUser (req: Request, res: Response): void;
     findAllUsersFollowing (req: Request, res: Response): void;
     findAllUsersFollower (req: Request, res: Response): void;
-    userUnfollowAll (req: Request, res: Response): void;
+    userUnfollowsAll (req: Request, res: Response): void;
     userRemoveAllFollowers (req: Request, res: Response): void;
 };

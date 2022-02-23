@@ -38,7 +38,7 @@
              app.get("/api/users/:uid/follower", FollowController.followController.findAllUsersFollower);
              app.post("/api/users/:uid/follows/:auid", FollowController.followController.userFollowsUser);
              app.delete("/api/users/:uid/unfollows/:auid", FollowController.followController.userUnfollowsUser);
-             app.delete("/api/users/:uid/unfollows/all",FollowController.followController.userUnfollowAll);
+             app.delete("/api/users/:uid/unfollows/all",FollowController.followController.userUnfollowsAll);
              app.delete("/api/users/:uid/removefollowers/all",FollowController.followController.userRemoveAllFollowers);
          }
          return FollowController.followController;
@@ -91,8 +91,8 @@
         FollowController.followDao.userUnfollowsUser(req.params.uid, req.params.auid)
             .then(status => res.send(status));
       
-      userUnfollowAll = (req: Request, res: Response) =>
-        FollowController.followDao.userUnfollowAll(req.params.uid)
+      userUnfollowsAll = (req: Request, res: Response) =>
+        FollowController.followDao.userUnfollowsAll(req.params.uid)
             .then(status => res.send(status));
 
       userRemoveAllFollowers = (req: Request, res: Response) =>
