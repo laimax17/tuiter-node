@@ -40,7 +40,7 @@
              app.delete("/api/users/:uid/messages/delete/:mid", MessageController.messageController.deleteMessageByUser);
              app.post("/api/users/:uid/sends/:auid/message", MessageController.messageController.createMessageByUser);
              app.get("/api/users/:uid/messages/:mid", MessageController.messageController.findMessageByMid);
-             app.get("/api/users/:uid/messages/date", MessageController.messageController.findMessageByDate);
+             app.get("/api/users/:uid/messages/delete", MessageController.messageController.deleteAllMessageByUser);
          }
          return MessageController.messageController;
      }
@@ -97,7 +97,7 @@
          MessageController.messageDao.findMessageByMid(req.params.mid)
              .then((message: Message) => res.json(message));
       
-      findMessageByDate = (req: Request, res: Response) =>
-         MessageController.messageDao.findMessageByDate(req.params.uid, req.body.sentOn)
-             .then((messages: Message[]) => res.json(messages));
+      deleteAllMessageByUser = (req: Request, res: Response) =>
+             MessageController.messageDao.deleteAllMessageByUser(req.params.uid)
+                 .then((status) => res.send(status));
  };
