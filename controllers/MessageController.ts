@@ -40,7 +40,7 @@
              app.delete("/api/users/:uid/messages/delete/:mid", MessageController.messageController.deleteMessageByUser);
              app.post("/api/users/:uid/sends/:auid/message", MessageController.messageController.createMessageByUser);
              app.get("/api/users/:uid/messages/:mid", MessageController.messageController.findMessageByMid);
-             app.get("/api/users/:uid/messages/delete", MessageController.messageController.deleteAllMessageByUser);
+             app.delete("/api/users/:uid/messages/delete", MessageController.messageController.deleteAllMessageByUser);
          }
          return MessageController.messageController;
      }
