@@ -9,5 +9,5 @@ export default interface MessageDaoI {
     deleteMessageByUser (uid: string, mid: string): Promise<any>;
     createMessageByUser (uid: string, auid: string, message: Message): Promise<Message>;
     findMessageByMid (mid: string): Promise<Message>;
-    findMessageByDate (uid: string, date: string): Promise<Message[]>;
+    findMessageByDate (uid: string, date: Date): Promise<Message[]>;
 };
