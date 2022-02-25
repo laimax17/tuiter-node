@@ -7,7 +7,7 @@
  import MessageDaoI from "../interfaces/MessageDaoI";
  
  /**
-  * @class UserDao Implements Data Access Object managing data storage
+  * @class MessageDao Implements Data Access Object managing data storage
   * of Users
   * @property {MessageDao} messageDao Private single instance of UserDao
   */

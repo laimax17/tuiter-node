@@ -1,5 +1,8 @@
 import {Request, Response} from "express";
 
+/**
+ * @file Declares follows controller interface.
+ */
 export default interface FollowControllerI {
     userFollowsUser (req: Request, res: Response): void;
     userUnfollowsUser (req: Request, res: Response): void;

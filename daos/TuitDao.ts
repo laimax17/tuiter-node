@@ -7,9 +7,9 @@
  import TuitDaoI from "../interfaces/TuitDaoI";
  
  /**
-  * @class UserDao Implements Data Access Object managing data storage
-  * of Users
-  * @property {UserDao} userDao Private single instance of UserDao
+  * @class TuitDao Implements Data Access Object managing data storage
+  * of Tuits
+  * @property {TuitDao} userDao Private single instance of TuitDao
   */
  export default class TuitDao implements TuitDaoI{
      private static tuitDao: TuitDao | null = null;
@@ -72,7 +72,7 @@
          TuitModel.updateOne(
              {_id: tid},
              {$set: tuit});
-             
+
     /**
       * Removes tuit from the database.
       * @param {string} uid User's primary key

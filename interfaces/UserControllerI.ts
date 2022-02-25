@@ -1,5 +1,8 @@
 import {Request, Response} from "express";
 
+/**
+ * @file Declares user controller interface.
+ */
 export default interface UserControllerI {
     findAllUsers (req: Request, res: Response): void;
     findUserById (req: Request, res: Response): void;

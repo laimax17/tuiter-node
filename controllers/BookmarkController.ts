@@ -71,6 +71,7 @@
              .then(bookmarks => res.json(bookmarks));
  
      /**
+      * User bookmarks a tuit 
       * @param {Request} req Represents request from client, including the
       * path parameters uid and tid representing the user that bookmark the tuit
       * and the tuit being bookmarked
@@ -83,6 +84,7 @@
              .then(bookmarks => res.json(bookmarks));
  
      /**
+      * User unbookmarks a tuit
       * @param {Request} req Represents request from client, including the
       * path parameters uid and tid representing the user that unbookmark
       * the tuit and the tuit being unbookmarked
@@ -95,11 +97,11 @@
              
     
      /**
-      * @param {Request} req Represents request from client, including the
-      * path parameters uid and tid representing the user that unbookmark
-      * the tuit and the tuit being unbookmarked
-      * @param {Response} res Represents response to client, including status
-      * on whether deleting the bookmark was successful or not
+      * Retrieves specific tuit that is bookmarked by the user from the database
+      * @param {Request} req Represents request from client, including the path
+      * parameter tid representing the bookmarked tuit
+      * @param {Response} res Represents response to client, including the
+      * body formatted as JSON arrays containing the tuit objects
       */
     findSpecificTuitBookmarkedByUser = (req: Request, res: Response) =>
       BookmarkController.bookmarkDao.findSpecificTuitBookmarkedByUser(req.params.uid, req.params.tid)
