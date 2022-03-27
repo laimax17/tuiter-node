@@ -97,7 +97,7 @@ export default class TuitController implements TuitControllerI {
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
 
-        // console.log(userId);
+        console.log(userId);
         
         TuitController.tuitDao.createTuitByUser(userId, req.body)
             .then((tuit: Tuit) => res.json(tuit));
