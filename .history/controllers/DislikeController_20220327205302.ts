@@ -108,12 +108,12 @@
              let tuit = await tuitDao.findTuitById(tid);
              if (userAlreadyDislikedTuit) {
                  await DislikeDao.userUnDislikesTuit(userId, tid);
-                 tuit.stats.dislikes = howManyDislikedTuit - 1;
-                 tuit.stats.like = howManyLikedTuit + 1;
+                 tuit.stats.Dislikes = howManyDislikedTuit - 1;
+                 tuit.stats.Like = howManyLikedTuit + 1;
              } else {
                  await DislikeController.dislikeDao.userDislikesTuit(userId, tid);
-                 tuit.stats.dislikes = howManyDislikedTuit + 1;
-                 tuit.stats.like = howManyLikedTuit - 1;
+                 tuit.stats.Dislikes = howManyDislikedTuit + 1;
+                 tuit.stats.Like = howManyLikedTuit - 1;
              };
              await tuitDao.updateDislikes(tid, tuit.stats);
              res.sendStatus(200);

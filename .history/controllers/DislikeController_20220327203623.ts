@@ -5,7 +5,7 @@
  import DislikeDao from "../daos/DislikeDao";
  import DislikeControllerI from "../interfaces/DislikeControllerI";
  import TuitDao from "../daos/TuitDao";
- import LikeController from "./LikeController";
+import LikeController from "./LikeController";
  
  /**
   * @class TuitController Implements RESTful Web service API for Dislikes resource.
@@ -25,9 +25,9 @@
   * RESTful Web service API
   */
  export default class DislikeController implements DislikeControllerI {
-     private static dislikeDao: DislikeDao = DislikeDao.getInstance();
+     private static DislikeDao: DislikeDao = DislikeDao.getInstance();
      private static tuitDao: TuitDao = TuitDao.getInstance();
-     private static dislikeController: DislikeController | null = null;
+     private static DislikeController: DislikeController | null = null;
      /**
       * Creates singleton controller instance
       * @param {Express} app Express instance to declare the RESTful Web service
@@ -35,13 +35,13 @@
       * @return TuitController
       */
      public static getInstance = (app: Express): DislikeController => {
-         if(DislikeController.dislikeController === null) {
-             DislikeController.dislikeController = new DislikeController();
-             app.get("/api/users/:uid/dislikes", DislikeController.dislikeController.findAllTuitsDislikedByUser);
-             app.get("/api/tuits/:tid/dislikes", DislikeController.dislikeController.findAllUsersThatDislikedTuit);
-             app.put("/api/users/:uid/dislikes/:tid", DislikeController.dislikeController.userTogglesTuitDislikes);
+         if(DislikeController.DislikeController === null) {
+             DislikeController.DislikeController = new DislikeController();
+             app.get("/api/users/:uid/dislikes", DislikeController.DislikeController.findAllTuitsDislikedByUser);
+             app.get("/api/tuits/:tid/dislikes", DislikeController.DislikeController.findAllUsersThatDislikedTuit);
+             app.put("/api/users/:uid/dislikes/:tid", DislikeController.DislikeController.userTogglesTuitDislikes);
          }
-         return DislikeController.dislikeController;
+         return DislikeController.DislikeController;
      }
 
      public static getDislikeDaoInstance : DislikeDao = DislikeDao.getInstance();
@@ -56,7 +56,7 @@
       * body formatted as JSON arrays containing the user objects
       */
      findAllUsersThatDislikedTuit = (req: Request, res: Response) =>
-         DislikeController.dislikeDao.findAllUsersThatDislikedTuit(req.params.tid)
+         DislikeController.DislikeDao.findAllUsersThatDislikedTuit(req.params.tid)
              .then(Dislikes => res.json(Dislikes));
  
      /**
@@ -73,7 +73,7 @@
          const userId = uid === "me" && profile ?
              profile._id : uid;
  
-         DislikeController.dislikeDao.findAllTuitsDislikedByUser(userId)
+         DislikeController.DislikeDao.findAllTuitsDislikedByUser(userId)
              .then(Dislikes => {
                  const DislikesNonNullTuits = Dislikes.filter(Dislike => Dislike.tuit);
                  const tuitsFromDislikes = DislikesNonNullTuits.map(Dislike => Dislike.tuit);
@@ -92,7 +92,7 @@
       */
      userTogglesTuitDislikes = async (req: Request, res: Response) => {
          console.log("in toggle tuit dislike");
-         const DislikeDao = DislikeController.dislikeDao;
+         const DislikeDao = DislikeController.DislikeDao;
          const tuitDao = DislikeController.tuitDao;
          const likeDao = LikeController.getLikeDaoInstance;
          const uid = req.params.uid;
@@ -108,12 +108,12 @@
              let tuit = await tuitDao.findTuitById(tid);
              if (userAlreadyDislikedTuit) {
                  await DislikeDao.userUnDislikesTuit(userId, tid);
-                 tuit.stats.dislikes = howManyDislikedTuit - 1;
-                 tuit.stats.like = howManyLikedTuit + 1;
+                 tuit.stats.Dislikes = howManyDislikedTuit - 1;
+                 tuit.stats.Like = howManyLikedTuit + 1;
              } else {
-                 await DislikeController.dislikeDao.userDislikesTuit(userId, tid);
-                 tuit.stats.dislikes = howManyDislikedTuit + 1;
-                 tuit.stats.like = howManyLikedTuit - 1;
+                 await DislikeController.DislikeDao.userDislikesTuit(userId, tid);
+                 tuit.stats.Dislikes = howManyDislikedTuit + 1;
+                 tuit.stats.Like = howManyLikedTuit - 1;
              };
              await tuitDao.updateDislikes(tid, tuit.stats);
              res.sendStatus(200);

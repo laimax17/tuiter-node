@@ -13,11 +13,11 @@ export default class DislikeDao implements DislikeDaoI {
     findAllUsersThatDislikedTuit = async (tid: string): Promise<Dislike[]> =>
         DislikeModel
             .find({tuit: tid})
-            .populate("dislikedBy")
+            .populate("DislikedBy")
             .exec();
     findAllTuitsDislikedByUser = async (uid: string): Promise<Dislike[]> =>
         DislikeModel
-            .find({dislikedBy: uid})
+            .find({DislikedBy: uid})
             .populate({
                 path: "tuit",
                 populate: {
@@ -26,11 +26,11 @@ export default class DislikeDao implements DislikeDaoI {
             })
             .exec();
     userDislikesTuit = async (uid: string, tid: string): Promise<any> =>
-        DislikeModel.create({tuit: tid, dislikedBy: uid});
+        DislikeModel.create({tuit: tid, DislikedBy: uid});
     findUserDislikesTuit = async (uid: string, tid: string): Promise<any> =>
-        DislikeModel.findOne({tuit: tid, dislikedBy: uid});
+        DislikeModel.findOne({tuit: tid, DislikedBy: uid});
     userUnDislikesTuit = async (uid: string, tid: string): Promise<any> =>
-        DislikeModel.deleteOne({tuit: tid, dislikedBy: uid});
+        DislikeModel.deleteOne({tuit: tid, DislikedBy: uid});
     countHowManyDislikedTuit = async (tid: string): Promise<any> =>
         DislikeModel.count({tuit: tid});
 }
