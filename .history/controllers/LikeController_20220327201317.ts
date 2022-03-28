@@ -44,8 +44,6 @@ export default class LikeController implements LikeControllerI {
         return LikeController.likeController;
     }
 
-    public static getLikeDaoInstance : LikeDao = LikeDao.getInstance();
-
     private constructor() {}
 
     /**

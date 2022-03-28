@@ -5,7 +5,6 @@ import {Express, Request, Response} from "express";
 import LikeDao from "../daos/LikeDao";
 import LikeControllerI from "../interfaces/LikeControllerI";
 import TuitDao from "../daos/TuitDao";
-import DislikeController from "./DislikeController";
 
 /**
  * @class TuitController Implements RESTful Web service API for likes resource.
@@ -43,8 +42,6 @@ export default class LikeController implements LikeControllerI {
         }
         return LikeController.likeController;
     }
-
-    public static getLikeDaoInstance : LikeDao = LikeDao.getInstance();
 
     private constructor() {}
 
@@ -93,7 +90,6 @@ export default class LikeController implements LikeControllerI {
     userTogglesTuitLikes = async (req: Request, res: Response) => {
         const likeDao = LikeController.likeDao;
         const tuitDao = LikeController.tuitDao;
-        const dislikeDao = DislikeController.getDislikeDaoInstance;
         const uid = req.params.uid;
         const tid = req.params.tid;
         // @ts-ignore
@@ -103,16 +99,13 @@ export default class LikeController implements LikeControllerI {
         try {
             const userAlreadyLikedTuit = await likeDao.findUserLikesTuit(userId, tid);
             const howManyLikedTuit = await likeDao.countHowManyLikedTuit(tid);
-            const howManyDislikedTuit = await dislikeDao.countHowManyDislikedTuit(tid);
             let tuit = await tuitDao.findTuitById(tid);
             if (userAlreadyLikedTuit) {
                 await likeDao.userUnlikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit - 1;
-                tuit.stats.dislike = howManyDislikedTuit + 1;
             } else {
                 await LikeController.likeDao.userLikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit + 1;
-                tuit.stats.dislike = howManyDislikedTuit - 1;
             };
             await tuitDao.updateLikes(tid, tuit.stats);
             res.sendStatus(200);
