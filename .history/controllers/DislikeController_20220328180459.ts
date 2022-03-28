@@ -6,7 +6,6 @@
  import DislikeControllerI from "../interfaces/DislikeControllerI";
  import TuitDao from "../daos/TuitDao";
  import LikeController from "./LikeController";
-import LikeDao from "../daos/LikeDao";
  
  /**
   * @class TuitController Implements RESTful Web service API for Dislikes resource.
@@ -29,7 +28,6 @@ import LikeDao from "../daos/LikeDao";
      private static dislikeDao: DislikeDao = DislikeDao.getInstance();
      private static tuitDao: TuitDao = TuitDao.getInstance();
      private static dislikeController: DislikeController | null = null;
-     private static likeDao: LikeDao = LikeDao.getInstance();
      /**
       * Creates singleton controller instance
       * @param {Express} app Express instance to declare the RESTful Web service
@@ -42,12 +40,11 @@ import LikeDao from "../daos/LikeDao";
              app.get("/api/users/:uid/dislikes", DislikeController.dislikeController.findAllTuitsDislikedByUser);
              app.get("/api/tuits/:tid/dislikes", DislikeController.dislikeController.findAllUsersThatDislikedTuit);
              app.put("/api/users/:uid/dislikes/:tid", DislikeController.dislikeController.userTogglesTuitDislikes);
-             app.get("/api/users/:uid/hasDisliked/:tid", DislikeController.dislikeController.findUserDislikesTuit);
          }
          return DislikeController.dislikeController;
      }
 
-    //  public static getDislikeDaoInstance : DislikeDao = DislikeDao.getInstance();
+     public static getDislikeDaoInstance : DislikeDao = DislikeDao.getInstance();
  
      private constructor() {}
  
@@ -96,7 +93,7 @@ import LikeDao from "../daos/LikeDao";
      userTogglesTuitDislikes = async (req: Request, res: Response) => {
          const dislikeDao = DislikeController.dislikeDao;
          const tuitDao = DislikeController.tuitDao;
-         const likeDao = DislikeController.likeDao;
+         const likeDao = LikeController.getLikeDaoInstance;
          const uid = req.params.uid;
          const tid = req.params.tid;
          // @ts-ignore
@@ -107,19 +104,15 @@ import LikeDao from "../daos/LikeDao";
              const userAlreadyDislikedTuit = await dislikeDao.findUserDislikesTuit(userId, tid);
              const howManyDislikedTuit = await dislikeDao.countHowManyDislikedTuit(tid);
              const howManyLikedTuit = await likeDao.countHowManyLikedTuit(tid);
-             const userAlreadyLikedTuit = await likeDao.findUserLikesTuit(userId,tid);
              let tuit = await tuitDao.findTuitById(tid);
              if (userAlreadyDislikedTuit) {
                  await dislikeDao.userUnDislikesTuit(userId, tid);
                  tuit.stats.dislikes = howManyDislikedTuit - 1;
-                 
+                 tuit.stats.like = howManyLikedTuit + 1;
              } else {
                  await DislikeController.dislikeDao.userDislikesTuit(userId, tid);
                  tuit.stats.dislikes = howManyDislikedTuit + 1;
-                 if (userAlreadyLikedTuit) {        
-                    await likeDao.userUnlikesTuit(userId, tid);
-                    tuit.stats.likes = howManyLikedTuit -1;
-                 }
+                 tuit.stats.like = howManyLikedTuit - 1;
              };
              await tuitDao.updateDislikes(tid, tuit.stats);
              res.sendStatus(200);
@@ -127,17 +120,4 @@ import LikeDao from "../daos/LikeDao";
              res.sendStatus(404);
          }
      }
-
-     findUserDislikesTuit = (req:Request ,res:Response) => {
-        const uid = req.params.uid;
-        const tid = req.params.tid;
-        // @ts-ignore
-        const profile = req.session['profile'];
-        const userId = uid === "me" && profile ?
-            profile._id : uid;
-
-        DislikeController.dislikeDao.findUserDislikesTuit(userId,tid)
-                .then(dislikes => res.json(dislikes));
-
-    }
  };

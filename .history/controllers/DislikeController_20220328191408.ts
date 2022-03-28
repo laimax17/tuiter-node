@@ -116,9 +116,18 @@ import LikeDao from "../daos/LikeDao";
              } else {
                  await DislikeController.dislikeDao.userDislikesTuit(userId, tid);
                  tuit.stats.dislikes = howManyDislikedTuit + 1;
-                 if (userAlreadyLikedTuit) {        
+                 console.log(userAlreadyLikedTuit);
+                 
+                 if (userAlreadyLikedTuit) {
+                    console.log("get into already likedtuit.");
+                    
                     await likeDao.userUnlikesTuit(userId, tid);
-                    tuit.stats.likes = howManyLikedTuit -1;
+                    console.log("count like number");
+                    
+                    console.log(howManyLikedTuit);
+                    
+                    console.log(tuit.stats);
+                    tuit.stats.like = howManyLikedTuit -1;
                  }
              };
              await tuitDao.updateDislikes(tid, tuit.stats);
