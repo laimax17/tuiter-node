@@ -19,16 +19,13 @@ import SessionController from "./controllers/SessionController";
 import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
 import GroupController from "./controllers/GroupController";
-import DislikeController from './controllers/DislikeController';
 const cors = require("cors");
 const session = require("express-session");
 
 // build the connection string
 const PROTOCOL = "mongodb+srv";
-// const DB_USERNAME = process.env.DB_USERNAME;
-// const DB_PASSWORD = process.env.DB_PASSWORD;
-const DB_USERNAME = 'max17';
-const DB_PASSWORD = 'max17';
+const DB_USERNAME = process.env.DB_USERNAME;
+const DB_PASSWORD = process.env.DB_PASSWORD;
 const HOST = "cluster0.gci7e.mongodb.net";
 const DB_NAME = "tuiter";
 const DB_QUERY = "retryWrites=true&w=majority";
@@ -70,7 +67,6 @@ const courseController = new CourseController(app);
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
-const dislikeController = DislikeController.getInstance(app);
 SessionController(app);
 AuthenticationController(app);
 GroupController(app);

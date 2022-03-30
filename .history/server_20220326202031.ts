@@ -19,7 +19,6 @@ import SessionController from "./controllers/SessionController";
 import AuthenticationController from "./controllers/AuthenticationController";
 import mongoose from "mongoose";
 import GroupController from "./controllers/GroupController";
-import DislikeController from './controllers/DislikeController';
 const cors = require("cors");
 const session = require("express-session");
 
@@ -70,7 +69,6 @@ const courseController = new CourseController(app);
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
-const dislikeController = DislikeController.getInstance(app);
 SessionController(app);
 AuthenticationController(app);
 GroupController(app);

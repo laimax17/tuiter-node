@@ -116,6 +116,7 @@ export default class LikeController implements LikeControllerI {
             } else {
                 await LikeController.likeDao.userLikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit + 1;
+                //console.log(userAlreadyDislikedTuit);
                 
                 if (userAlreadyDislikedTuit) {
                     await dislikeDao.userUnDislikesTuit(userId, tid);
@@ -130,15 +131,6 @@ export default class LikeController implements LikeControllerI {
         }
     }
 
-    /**
-     * Find if a user has liked a tuit or not
-     * @param req Represents request from client, including the
-     * path parameters uid and tid representing the user that is liking the tuit
-     * and the tuit being liked
-     * @param res Represents response to client, including the
-     * body formatted as JSON containing the new likes that was inserted in the
-     * database
-     */
     findUserLikesTuit = (req:Request ,res:Response) => {
         const uid = req.params.uid;
         const tid = req.params.tid;
